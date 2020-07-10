@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -79,11 +79,35 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      //rowIndex represent where the nested collumarray is the nested row array
+      // console.log(this.get(rowIndex), "my this log");
+      var rowArray = this.get(rowIndex);
+      // need to get the current row array.
+      // counter to track how many placemarkers
+      // one placemaker = 1
+      var conflictTotal = 0;
+      for (var i = 0; i < rowArray.length; i++) {
+        conflictTotal += rowArray[i];
+      }
+      // needs to check if the row has a current marker in it.
+      if (conflictTotal > 1) {
+        return true;
+      }
+      // How are markers represented?
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      var boardSize = this.get('n');
+      // iterate through board size
+      // this refrences the object that hasRowConflictAt is a property of
+      for (var i = 0; i < boardSize; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+
       return false; // fixme
     },
 
@@ -94,11 +118,31 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      // create variable to get boardsize
+      var boardSize  = this.get('n');
+      //create counter to keep track of pieces in column
+      var conflictTotal = 0;
+      // create colIndexArray
+      rowArray = this.get(colIndex);
+      // console.log(this.get(colIndex))
+      // iterate through all the arrays
+      for ( var k = 0; k < boardSize; k++){
+        conflictTotal += rowArray[k][colIndex];
+        // add to counter every element in the column
+        if( conflictTotal > 1) {
+          return true;
+        }
+      // check to see if counter is more than 1
+      }
       return false; // fixme
+
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      // make boardsize variable
+      //iterate through board size
+      // if conflict at current spot return true
       return false; // fixme
     },
 
@@ -144,5 +188,5 @@
       });
     });
   };
-
+  console.log(window.Board);
 }());
