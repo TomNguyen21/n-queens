@@ -118,8 +118,6 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      // console.log(this);
-      // debugger;
       // create variable to get boardsize
       var boardSize = this.get('n');
       //create counter to keep track of pieces in column
@@ -167,7 +165,35 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      console.log(majorDiagonalColumnIndexAtFirstRow, 'diagonal');
+      var matrix = this.attributes;
+      var startIndex = matrix[0][0];
+      var conflictsTotal = 0;
+      if (majorDiagonalColumnIndexAtFirstRow < 0) {
+        majorDiagonalColumnIndexAtFirstRow *= -1;
+        diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
+        for (var i = 0; i < matrix.length; i++) {
+          if (this.isInBounds(matrix[i], diagonalStarter )) {
+            conflictsTotal += matrix[i][diagonalStarter += 1];
+          }
+        }
+      } else {
+        diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
+        for (var i = 0; i < matrix.length; i++) {
+          if (this.isInBounds(diagonalStarter, i)) {
+            conflictsTotal += matrix[diagonalStarter += 1][i];
+          }
+        }
+      }
+      console.log(conflictsTotal, 'conflicts')
+      if (conflictsTotal > 1) {
+        return true;
+      }
+
+        // for (var i = 0; i < matrix[i].length; i++) {
+        //   for (var j = 0; j < matrix[i])
+        // }
+        return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -202,5 +228,4 @@
       });
     });
   };
-  console.log(window.Board);
 }());
