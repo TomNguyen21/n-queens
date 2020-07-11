@@ -14,9 +14,26 @@
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
 
+// do we need to make an matrix class?
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  // will contain our new Board instances that contain a solution that has no conflics
+  // helper functions hasAnyRookConflicts, and Toogle
+  var solution = new Board({'n': n}); //fixme
+  // create rook counter
+  var rooks = 0;
+  var rowIndex = 0;
+  // iterate throught the board
+  for (var i = 0; i < n; i++) {
+    // check to see if there is any conflicts at given array indexes
+    if (!solution.hasRowConflictAt(rowIndex) && !solution.hasColConflictAt(i)) {
+      //toggle the piece and add rook counter?
+      console.log(i,"poop")
+      solution.togglePiece(rowIndex, i);
+      rowIndex++;
+    }
+  }
+
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;

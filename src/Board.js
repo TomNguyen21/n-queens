@@ -221,8 +221,8 @@
       let conflictsTotal = 0;
       let diagonalStarter = minorDiagonalColumnIndexAtFirstRow;
       for (var i = 0; i < matrix.n; i++) {
-        console.log(matrix[i], 'row ')
-        console.log(diagonalStarter, 'starter')
+        // console.log(matrix[i], 'row ')
+        // console.log(diagonalStarter, 'starter')
         if (this._isInBounds(i, diagonalStarter)) {
           conflictsTotal += matrix[i][diagonalStarter];
         }
