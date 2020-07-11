@@ -118,18 +118,20 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      // console.log(this);
+      // debugger;
       // create variable to get boardsize
-      var boardSize  = this.get('n');
+      var boardSize = this.get('n');
       //create counter to keep track of pieces in column
       var conflictTotal = 0;
       // create colIndexArray
-      rowArray = this.get(colIndex);
+      var matrix = this.attributes;
       // console.log(this.get(colIndex))
       // iterate through all the arrays
-      for ( var k = 0; k < boardSize; k++){
-        conflictTotal += rowArray[k][colIndex];
+      for ( var k = 0; k < boardSize; k++) {
+        conflictTotal += matrix[k][colIndex];
         // add to counter every element in the column
-        if( conflictTotal > 1) {
+        if ( conflictTotal > 1) {
           return true;
         }
       // check to see if counter is more than 1
@@ -139,9 +141,21 @@
     },
 
     // test if any columns on this board contain conflicts
+
     hasAnyColConflicts: function() {
       // make boardsize variable
+      var boardSize = this.get('n');
       //iterate through board size
+      //add row counter
+
+      for (var i = 0; i < boardSize; i++) {
+
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+        //add to row counter ++
+
+      }
       // if conflict at current spot return true
       return false; // fixme
     },
