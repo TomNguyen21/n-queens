@@ -165,31 +165,35 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      console.log(majorDiagonalColumnIndexAtFirstRow, 'diagonal');
       var matrix = this.attributes;
-      var startIndex = matrix[0][0];
       var conflictsTotal = 0;
       if (majorDiagonalColumnIndexAtFirstRow < 0) {
-        majorDiagonalColumnIndexAtFirstRow *= -1;
-        diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
-        for (var i = 0; i < matrix.length; i++) {
-          if (this.isInBounds(matrix[i], diagonalStarter )) {
-            conflictsTotal += matrix[i][diagonalStarter += 1];
+        var diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
+        diagonalStarter *= -1;
+        for (var i = 0; i < matrix.n; i++) {
+          if (this._isInBounds(i, diagonalStarter)) {
+            conflictsTotal += matrix[i][diagonalStarter];
+            diagonalStarter++;
           }
+        }
+        console.log(conflictsTotal, 'conflicts negative')
+        if (conflictsTotal > 1) {
+          return true;
         }
       } else {
-        diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
-        for (var i = 0; i < matrix.length; i++) {
-          if (this.isInBounds(diagonalStarter, i)) {
-            conflictsTotal += matrix[diagonalStarter += 1][i];
+        var diagonalStarter = majorDiagonalColumnIndexAtFirstRow;
+        for (var i = 0; i < matrix.n; i++) {
+          if (this._isInBounds(diagonalStarter, i)) {
+            conflictsTotal += matrix[diagonalStarter][i];
+            console.log(matrix[diagonalStarter][i], 'positive start')
+            diagonalStarter++;
+          }
+          console.log(conflictsTotal, 'conflicts positive')
+          if (conflictsTotal > 1) {
+            return true;
           }
         }
       }
-      console.log(conflictsTotal, 'conflicts')
-      if (conflictsTotal > 1) {
-        return true;
-      }
-
         // for (var i = 0; i < matrix[i].length; i++) {
         //   for (var j = 0; j < matrix[i])
         // }
